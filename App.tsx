@@ -1,32 +1,63 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+type Consulta = {
+  id: number;
+  paciente: string;
+  medico: string;
+  data: string;
+  status: "agendada" | "confirmada" | "cancelada" | "realizada";
+};
 export default function App() {
+  const [consulta, setConsulta] = useState<Consulta>({
+    id: 1,
+    paciente: "Carlos Andrade",
+    medico: "Dr. Roberto Silva",
+    data: "28/02/2026",
+    status: "agendada",
+  });
+  function confirmarConsulta() {
+    setConsulta({
+      ...consulta,
+      status: "confirmada",
+    });
+  }
   return (
     <View style={styles.container}>
-      <Text style={styles.xpto}>2CCA</Text>
-      <Text style={styles.subtitulo}>Aplicativo Marcação de Consultas</Text>
-      <StatusBar style="auto" />
+      <Text style={styles.titulo}>Sistema de Consultas</Text>
+      <View style={styles.card}>
+        <Text>Paciente: {consulta.paciente}</Text>
+        <Text>Médico: {consulta.medico}</Text>
+        <Text>Data: {consulta.data}</Text>
+        <Text>Status: {consulta.status}</Text>
+        {consulta.status === "agendada" && (
+          <View style={styles.buttonContainer}>
+          <Button title="Confirmar Consulta" onPress={confirmarConsulta} />
+          </View>
+        )}
+      </View>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#470461',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  xpto : {
-    color: '#fff',
-    fontSize: 50,
-    fontWeight: 'bold',
+  titulo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
-  subtitulo: {
-    color: '#fff',
-    fontSize: 20,
-    marginTop: 10,
-    textAlign: 'center',
+  card: {
+    width: "80%",
+    padding: 20,
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: '#983022',
+  },
+  buttonContainer: {
+    marginTop: 20,
   }
 });
