@@ -1,5 +1,5 @@
-export type statusConsulta = 
-    | "agendada"
-    | "confirmada"
-    | "cancelada"
-    | "realizada"
+export type StatusConsulta =
+  | "agendada"
+  | "confirmada"
+  | "cancelada"
+  | "realizada";
